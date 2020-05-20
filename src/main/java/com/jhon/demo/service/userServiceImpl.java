@@ -19,7 +19,7 @@ public class userServiceImpl implements UserService {
     public Integer registerUser(User user) throws RuntimeException {
 
         try {
-            //获取自增趋势id
+            //获取自增趋势id 伪snowflake
             final Long id = idWorker.getId();
             //密码加密
             String mixedPwd = md5Utils.getMixedPassword(user.getPassword());
