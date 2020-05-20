@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jhon.demo.mapper.UserMapper">
+    <insert id="registerUser" parameterType="com.jhon.demo.entity.User">
+        INSERT INTO user1 (id,user_name,password,name,sex,salary,birthday,mobile)
+        SELECT
+            #{id},
+            #{userName},
+            #{password},
+            #{name},
+            #{sex},
+            #{salary},
+            #{birthday},
+            #{mobile}
+        from DUAL
+        where not exists(select mobile from user1 where mobile = #{mobile});
+    </insert>
+</mapper>
