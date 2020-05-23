@@ -11,7 +11,7 @@
  Target Server Version : 80019
  File Encoding         : 65001
 
- Date: 20/05/2020 22:51:22
+ Date: 23/05/2020 22:51:28
 */
 
 SET NAMES utf8mb4;
@@ -33,7 +33,8 @@ CREATE TABLE `user1`  (
   `mobile` char(16) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '用户手机号，唯一',
   PRIMARY KEY (`id`) USING BTREE,
   UNIQUE INDEX `uk_mobile`(`mobile`) USING BTREE COMMENT '手机号唯一索引',
-  INDEX `uni_name_sex_salary_bir`(`name`, `sex`, `salary`, `birthday`) USING BTREE
+  INDEX `uni_name_sex_salary_bir`(`name`, `sex`, `salary`, `birthday`) USING BTREE,
+  UNIQUE INDEX `uk_username`(`user_name`) USING BTREE COMMENT '登录名完善唯一索引'
 ) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
 
 SET FOREIGN_KEY_CHECKS = 1;

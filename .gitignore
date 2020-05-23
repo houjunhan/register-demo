@@ -18,7 +18,7 @@ target/
 *.iws
 *.iml
 *.ipr
-
+demo
 ### NetBeans ###
 /nbproject/private/
 /nbbuild/
@@ -29,3 +29,4 @@ build/
 
 ### VS Code ###
 .vscode/
+/src/main/java/com/jhon/demo/demo/
