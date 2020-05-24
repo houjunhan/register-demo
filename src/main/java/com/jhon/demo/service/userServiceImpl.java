@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
+import java.util.List;
 
 @Service
 public class userServiceImpl implements UserService {
@@ -21,7 +22,7 @@ public class userServiceImpl implements UserService {
     public Integer registerUser(User user) throws RuntimeException {
 
         HashMap hs = new HashMap();
-        hs.put(1,1);
+        hs.put(1, 1);
         try {
             //获取自增趋势id 伪snowflake
             final Long id = idWorker.getId();
@@ -33,5 +34,10 @@ public class userServiceImpl implements UserService {
             throw new RuntimeException(e.getMessage());
         }
         return userMapper.registerUser(user);
+    }
+
+    @Override
+    public List<User> getUsers() {
+        return userMapper.getUsers();
     }
 }

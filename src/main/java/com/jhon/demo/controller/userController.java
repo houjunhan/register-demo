@@ -2,14 +2,16 @@ package com.jhon.demo.controller;
 
 import com.jhon.demo.entity.CommonResult;
 import com.jhon.demo.entity.User;
+import com.jhon.demo.proxy.DynamicPoxy;
 import com.jhon.demo.service.UserService;
+import com.jhon.demo.service.userServiceImpl;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.lang.reflect.InvocationHandler;
+import java.lang.reflect.Proxy;
 
 @RestController
 @RequestMapping("/user")
@@ -31,6 +33,26 @@ public class userController {
                 new CommonResult<>() :
                 new CommonResult<>(444, "插入失败", insertRows);
         return integerCommonResult;
+    }
+
+    @GetMapping("all")
+    public Object getUsers() {
+
+        //被代理对象
+        userServiceImpl userServiceImpl = new userServiceImpl();
+        //指定要代理的真实对象
+        InvocationHandler handler = new DynamicPoxy(registerServiceImpl);
+
+        //handler.getClass().getClassLoader()：使用handler类的classLoader加载代理对象。
+        //userServiceImpl.getClass().getInterfaces()：真实对象实现的接口，也动态实现。
+        //handler：将代理对象关联到InvocationHandler对象。
+        UserService userService =
+                (UserService) Proxy.newProxyInstance(
+                        handler.getClass().getClassLoader(),
+                        userServiceImpl.getClass().getInterfaces(),
+                        handler
+                );
+        return userService.getUsers();
     }
 
 }
