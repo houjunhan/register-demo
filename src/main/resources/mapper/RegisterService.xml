@@ -16,6 +16,6 @@
         where not exists(select mobile from user1 where mobile = #{mobile});
     </insert>
     <select id="getUsers" resultType="com.jhon.demo.entity.User">
-            select id,name from user1;
+            select * from user1;
     </select>
 </mapper>

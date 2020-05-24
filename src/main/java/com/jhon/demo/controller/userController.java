@@ -35,22 +35,56 @@ public class userController {
         return integerCommonResult;
     }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     @GetMapping("all")
     public Object getUsers() {
 
-        //被代理对象
-        userServiceImpl userServiceImpl = new userServiceImpl();
+        DynamicPoxy handler = new DynamicPoxy();
         //指定要代理的真实对象
-        InvocationHandler handler = new DynamicPoxy(registerServiceImpl);
+        handler.setTarget(registerServiceImpl);
 
-        //handler：将代理对象关联到InvocationHandler对象。
-        UserService userService =
-                (UserService) Proxy.newProxyInstance(
-                        userServiceImpl.getClass().getClassLoader(),
-                        userServiceImpl.getClass().getInterfaces(),
-                        handler
-                );
-        return userService.getUsers();
+        return ((UserService) handler.getProxyInstance()).getUsers();
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 }
