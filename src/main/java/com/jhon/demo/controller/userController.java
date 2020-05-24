@@ -43,12 +43,10 @@ public class userController {
         //指定要代理的真实对象
         InvocationHandler handler = new DynamicPoxy(registerServiceImpl);
 
-        //handler.getClass().getClassLoader()：使用handler类的classLoader加载代理对象。
-        //userServiceImpl.getClass().getInterfaces()：真实对象实现的接口，也动态实现。
         //handler：将代理对象关联到InvocationHandler对象。
         UserService userService =
                 (UserService) Proxy.newProxyInstance(
-                        handler.getClass().getClassLoader(),
+                        userServiceImpl.getClass().getClassLoader(),
                         userServiceImpl.getClass().getInterfaces(),
                         handler
                 );
