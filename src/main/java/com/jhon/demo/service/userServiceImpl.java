@@ -4,11 +4,15 @@ import com.baomidou.mybatisplus.core.toolkit.IdWorker;
 import com.jhon.demo.common.md5Utils;
 import com.jhon.demo.entity.User;
 import com.jhon.demo.mapper.UserMapper;
+import org.springframework.aop.framework.AopContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class userServiceImpl implements UserService {
@@ -37,7 +41,19 @@ public class userServiceImpl implements UserService {
     }
 
     @Override
+    @Transactional
     public List<User> getUsers() {
         return userMapper.getUsers();
     }
+
+    @Override
+    public User getUser() {
+        //使用this调用改成动态代理调用(AopContext.currentProxy())
+        userServiceImpl proxy = (userServiceImpl) AopContext.currentProxy();
+        User user = proxy.getUsers().stream().findFirst().get();
+
+        return user;
+    }
+
+
 }

@@ -20,7 +20,6 @@ public class GlobalExceptionHandler {
 
     @ResponseBody
     @ExceptionHandler(value = {BindException.class, MethodArgumentNotValidException.class})
-
     public HashMap validationExceptionHandler(MethodArgumentNotValidException exception) {
 
         BindingResult result = exception.getBindingResult();

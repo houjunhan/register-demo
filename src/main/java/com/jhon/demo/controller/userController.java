@@ -69,7 +69,7 @@ public class userController {
         //指定要代理的真实对象
         handler.setTarget(registerServiceImpl);
 
-        return ((UserService) handler.getProxyInstance()).getUsers();
+        return ((UserService) handler.getProxyInstance()).getUser();
     }
 
 
