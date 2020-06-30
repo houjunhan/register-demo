@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Proxy;
+import java.util.List;
 
 @RestController
 @RequestMapping("/user")
@@ -36,33 +37,14 @@ public class userController {
     }
 
 
+    @GetMapping("/all")
+    public List<User> getAllUsers() {
+
+        return registerServiceImpl.getUsers();
+    }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    @GetMapping("all")
+    @GetMapping("/proxyall")
     public Object getUsers() {
 
         DynamicPoxy handler = new DynamicPoxy();
@@ -71,20 +53,6 @@ public class userController {
 
         return ((UserService) handler.getProxyInstance()).getUser();
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 }
