@@ -1,18 +1,19 @@
 package com.jhon.demo.controller;
 
 import com.jhon.demo.entity.CommonResult;
+import com.jhon.demo.entity.Loan;
 import com.jhon.demo.entity.User;
 import com.jhon.demo.proxy.DynamicPoxy;
 import com.jhon.demo.service.UserService;
-import com.jhon.demo.service.userServiceImpl;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-import java.lang.reflect.InvocationHandler;
-import java.lang.reflect.Proxy;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/user")
@@ -55,4 +56,35 @@ public class userController {
     }
 
 
+    @GetMapping("/random")
+    public String getRandom() {
+
+        String val = "";
+        Random random = new Random();
+        for (int i = 0; i < 4; i++) {
+            val += String.valueOf(random.nextInt(10));
+        }
+        return val;
+    }
+
+    @GetMapping("/myfilter")
+    public List<Loan> myfilter() {
+        List<Loan> list = new ArrayList<>();
+        List<Loan> result = null;
+
+        list.add(Loan.builder().loanRepayStatus("ok").loanStatus("day").num(1).build());
+        list.add(Loan.builder().loanRepayStatus("ok").loanStatus("day").num(2).build());
+        list.add(Loan.builder().loanRepayStatus("FAIL_REPAYMENT").loanStatus("HYD_WEEK_LOAN").num(3).build());
+        list.add(Loan.builder().loanRepayStatus("FAIL_REPAYMENT").loanStatus("HYD_WEEK_LOAN").num(4).build());
+
+        result = list.stream()
+                .filter(e -> !(e.getLoanRepayStatus().equals("FAIL_REPAYMENT") && e.getLoanStatus().equals("HYD_WEEK_LOAN")))
+                .collect(Collectors.toList());
+
+
+        return result;
+    }
 }
+
+
+
