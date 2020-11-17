@@ -10,10 +10,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.*;
 import java.util.stream.Collectors;
+import java.text.Format;
+
+import java.text.SimpleDateFormat;
+
+import java.util.Calendar;
+
+import java.util.Date;
 
 @RestController
 @RequestMapping("/user")
@@ -84,7 +91,93 @@ public class userController {
 
         return result;
     }
+
+
+    @GetMapping("/reference")
+    public Object refTest() {
+
+//        StringBuilder result = new StringBuilder();
+//        result.append("<br> aaa");
+//        tesRefArray(result);
+
+
+        List<String> result = new ArrayList<>();
+        result.add("aaa");
+        testList(result);
+        return result;
+    }
+
+    private void tesRefArray(StringBuilder input) {
+        input.append("<br> bbb");
+    }
+
+    private static void testList(List<String> input) {
+        input.add("bbb");
+    }
+
+//    public static void main(String[] args) {
+//        List<String> result = new ArrayList<>();
+//        result.add("aaa");
+//        testList(result);
+//        System.out.println(result);
+//    }
+
+    public static void streamTest() {
+
+        List<Loan> list = new ArrayList<>();
+        list.add(new Loan(1, 11, "0", "1", 100L));
+        list.add(new Loan(1, 22, "0", "1", 100L));
+        list.add(new Loan(2, 33, "0", "3", 100L));
+        list.add(new Loan(2, 44, "0", "4", 100L));
+
+
+        Map<Integer, List<Loan>> map = list.stream().collect(Collectors.groupingBy(Loan::getId));
+
+        List<Loan> dailyLoanDTOS = new ArrayList();
+
+        map.forEach((k, v) -> {
+            LongSummaryStatistics longSummaryStatistics = v.stream().collect(Collectors.summarizingLong(Loan::getNum));
+            Loan dailyLoanDTO = v.stream().findFirst().get();
+            dailyLoanDTO.setNum((int) longSummaryStatistics.getSum());
+            dailyLoanDTOS.add(dailyLoanDTO);
+        });
+
+
+        System.out.println("OK");
+
+    }
+
+
+    public static void main(String[] args) throws ParseException {
+        /*Calendar calendar = Calendar.getInstance();
+        calendar.add(Calendar.DATE, -10);
+        String tenBefore = new SimpleDateFormat("yyyy-MM-dd").format(calendar.getTime());
+        System.out.println(tenBefore);*/
+
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");//注意月份是MM
+        Date today = simpleDateFormat.parse("2020-10-23");
+
+
+        Format f=new SimpleDateFormat("yyyy-MM-dd");
+
+        System.out.println("今天bai是du:" +f.format(today));
+
+        Calendar c=Calendar.getInstance();
+        c.setTime(today);
+        c.add(Calendar.DAY_OF_MONTH,1);//今天+1天
+        c.add(Calendar.SECOND,-1);
+        Date tomorrow=c.getTime();
+
+        System.out.println("明天是:" +tomorrow.toString());
+
+
+    }
+
 }
+
+
+
+
 
 
 

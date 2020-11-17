@@ -2,6 +2,7 @@ package com.jhon.demo.service;
 
 import com.baomidou.mybatisplus.core.toolkit.IdWorker;
 import com.jhon.demo.common.md5Utils;
+import com.jhon.demo.entity.Loan;
 import com.jhon.demo.entity.User;
 import com.jhon.demo.mapper.UserMapper;
 import org.springframework.aop.framework.AopContext;
@@ -51,6 +52,15 @@ public class userServiceImpl implements UserService {
         User user = proxy.getUsers().stream().findFirst().get();
 
         return user;
+    }
+
+    public static void main(String[] args) {
+
+
+        Integer result = 0;
+        result = 33%500;
+        Integer other = 33/500;
+        System.out.println(result+"-------------"+other);
     }
 
 

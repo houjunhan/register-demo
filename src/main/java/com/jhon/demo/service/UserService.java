@@ -11,4 +11,8 @@ public interface UserService {
 
     User getUser();
 
+    default Integer testdefault(){
+        return 1;
+    }
+
 }
