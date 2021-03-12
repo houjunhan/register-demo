@@ -1,28 +1,28 @@
 package com.jhon.demo.temp;
 
-import java.util.LinkedList;
+import java.awt.*;
+import java.io.*;
+import java.net.Inet4Address;
+import java.net.InetAddress;
+import java.net.NetworkInterface;
+import java.net.SocketException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.text.DecimalFormat;
+import java.util.*;
+import java.util.List;
 
 public class test {
-    public static void main(String[] args) {
-       /* LinkedList<String> list = new LinkedList<>();
-        list.add("aaa");
-        list.add("bbb");
-        list.add("ccc");
 
-        list.push("dd");
-        String pop = list.pop();
-        String poll = list.poll();
+    public static void main(String[] args) throws Exception {
 
-        Integer result = "临时字符串".hashCode();
-        System.out.println(result);*/
+        String input = "1233";
 
-
-        Integer testInteger = 1;
-        integerAddOne(testInteger);
-        System.out.println(testInteger);
+        System.out.println(Long.parseLong(input));
+    }
+    public static String strYtoStrF(String input) {
+        DecimalFormat decimalFormat = new DecimalFormat("###################.###########");
+        return decimalFormat.format(Double.parseDouble(input) * 100);
     }
 
-    public static void integerAddOne(Integer input) {
-        input++;
-    }
 }

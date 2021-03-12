@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import java.math.BigDecimal;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -148,27 +149,22 @@ public class userController {
     }
 
 
-    public static void main(String[] args) throws ParseException {
-        /*Calendar calendar = Calendar.getInstance();
-        calendar.add(Calendar.DATE, -10);
-        String tenBefore = new SimpleDateFormat("yyyy-MM-dd").format(calendar.getTime());
-        System.out.println(tenBefore);*/
+    public static void main(String[] args) {
+        /*for (int i = 0; i < 10000; i++) {
+            //取hash
+            String key = String.valueOf(i);
+            long value = key.hashCode();
+            int hash=(int)(value ^ (value >>> 32));
+            int index=hash%10;
+            System.out.println(index);
+        }*/
 
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");//注意月份是MM
-        Date today = simpleDateFormat.parse("2020-10-23");
 
-
-        Format f=new SimpleDateFormat("yyyy-MM-dd");
-
-        System.out.println("今天bai是du:" +f.format(today));
-
-        Calendar c=Calendar.getInstance();
-        c.setTime(today);
-        c.add(Calendar.DAY_OF_MONTH,1);//今天+1天
-        c.add(Calendar.SECOND,-1);
-        Date tomorrow=c.getTime();
-
-        System.out.println("明天是:" +tomorrow.toString());
+        String key = "hhahah";
+        long value = key.hashCode();  //哈希
+        int hash = (int) (value ^ (value >>> 32));
+        int index = hash % 5;
+        System.out.println(index);
 
 
     }
